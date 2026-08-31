@@ -13,7 +13,7 @@ deleted — 35 dangling junctions in `~\.agents\skills` and `~\.claude\skills`.
 
 ```
 C:\Users\Admin\skills\            <- ONE master folder (git repo, source of truth)
-   ├─ <skill-name>\SKILL.md       <- 42 skills
+   ├─ <skill-name>\SKILL.md       <- 44 skills
    └─ docs\SETUP.md               <- this file
 
 C:\Users\Admin\.cline\skills    --junction--> C:\Users\Admin\skills   (Cline, global)
@@ -48,10 +48,12 @@ changes made in the master folder instantly.
 
 ## Notes
 
-- **Lost skills**: `claude-handoff` and `git-guardrails-claude-code` existed only in
-  the deleted `D:\GitHub\.github-private-org` repo. If that repo still exists on
-  GitHub (check its remote), re-clone it and copy those two skill folders into
-  `C:\Users\Admin\skills\`.
+- **Restored skills (2026-08-31)**: `claude-handoff` and `git-guardrails-claude-code`
+  were recovered from their upstream source
+  [mattpocock/skills](https://github.com/mattpocock/skills) — the public origin of
+  the deleted `.github-private-org` store. Note: the org repo
+  `Non-invasive-Neuromodulation-Lab/.github-private` still exists but is only a
+  stub (README + empty `agents/` folder, no skills).
 - **VS Code skill discovery**: skills are read from `.agents/skills` (user level =
   this junction) plus `.github/skills` (per project). In Copilot Chat, type `/` to
   see skills as slash commands; if they ever stop appearing, verify the
