@@ -58,6 +58,27 @@ Rules for new skills:
    - write a specific "description" - that's what the agent uses to
      decide when to activate the skill
 
+PREFER TO LET YOUR AI AGENT DO THE SETUP?
+------------------------------------------
+Paste this into a fresh Cline or Copilot Chat conversation on your machine
+(it includes guardrails so the agent cannot copy, delete, or commit anything):
+
+   Set up my shared global AI skills library.
+   Repo: https://github.com/Non-invasive-Neuromodulation-Lab/skills (public).
+   1. If %USERPROFILE%\skills does not exist, clone it there
+      (git clone https://github.com/Non-invasive-Neuromodulation-Lab/skills.git "%USERPROFILE%\skills").
+      If it already exists, run: git -C "%USERPROFILE%\skills" pull
+   2. Run: powershell -ExecutionPolicy Bypass -File "%USERPROFILE%\skills\install.ps1"
+   3. Show me the installer's validation output and list exactly which AI
+      tools I need to restart/reload.
+   Constraints: do NOT copy or move skill files into any agent folder
+   (e.g. %USERPROFILE%\.cline\skills) - the installer uses directory
+   junctions; the cloned repo stays the single real copy. Do not delete
+   anything. Do not commit or push.
+
+After the agent finishes, YOU still do the human step: restart/reload your
+AI tools (and in Cline, enable the skills in the Skills menu).
+
 Full documentation: README.md, HANDOFF.md and docs/SETUP.md in the repo.
 Any questions, just ask!
 =====================================================================
