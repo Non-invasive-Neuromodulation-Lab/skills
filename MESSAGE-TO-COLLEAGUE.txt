@@ -1,0 +1,63 @@
+=====================================================================
+ AI SKILLS LIBRARY - SETUP FOR YOUR MACHINE (copy everything below)
+=====================================================================
+
+Hi! This is our shared library of AI "skills" (instruction packages for
+Cline, VS Code Copilot Chat, Claude Code, and Antigravity/Gemini).
+Setting it up on your machine takes 2 minutes:
+
+STEP 1 - Install Git for Windows if you don't have it:
+         https://git-scm.com/download/win
+
+STEP 2 - Open PowerShell and run:
+
+   git clone https://github.com/Non-invasive-Neuromodulation-Lab/skills.git
+   cd skills
+   powershell -ExecutionPolicy Bypass -File .\install.ps1
+
+STEP 3 - Restart/reload your AI tools:
+   - Cline (VS Code):        open a new chat; enable skills in the
+                             Skills menu (scale icon next to model)
+   - VS Code Copilot Chat:   type /  (or /skills)  in the chat box
+   - Claude Code:            start a new session
+   - Antigravity (Gemini):   start a new conversation
+
+WHAT THIS DOES
+--------------
+Your cloned folder is the single real copy of the library. install.ps1
+creates transparent junctions (folder links) at:
+
+   %USERPROFILE%\.cline\skills          (Cline)
+   %USERPROFILE%\.agents\skills         (VS Code Copilot Chat)
+   %USERPROFILE%\.claude\skills         (Claude Code)
+   %USERPROFILE%\.gemini\config\skills  (Antigravity/Gemini)
+
+Nothing is copied into those folders, and nothing you already had
+there gets deleted (existing real folders are backed up next to
+themselves automatically).
+
+GETTING UPDATES
+---------------
+   git -C "C:\Users\<you>\skills" pull
+
+All agents see new/changed skills instantly - no reinstall needed.
+
+CONTRIBUTING (adding or fixing skills)
+--------------------------------------
+The repo is public for reading/cloning. To PUSH you need write access:
+ask me to add your GitHub username as a collaborator, or open a pull
+request. Then:
+
+   git add -A
+   git commit -m "Add/fix <skill-name>"
+   git push
+
+Rules for new skills:
+   - one folder per skill, containing a SKILL.md
+   - the SKILL.md frontmatter "name" must equal the folder name
+   - write a specific "description" - that's what the agent uses to
+     decide when to activate the skill
+
+Full documentation: README.md, HANDOFF.md and docs/SETUP.md in the repo.
+Any questions, just ask!
+=====================================================================

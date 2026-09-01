@@ -75,3 +75,6 @@ changes made in the master folder instantly.
   layout, move the skill folders out of the master folder into `.cline\skills`
   as a real directory. No backup copy exists anymore — the master folder is the
   single source of truth, so keep it committed to git.
+- New machines / handing the library to someone else: clone the repo and run
+  `install.ps1` (see `HANDOFF.md`) — it recreates the junctions at that
+  machine's user profile automatically.

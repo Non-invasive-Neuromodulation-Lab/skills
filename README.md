@@ -21,6 +21,13 @@ Windows directory junctions (transparent folder links):
    `.agents/skills/` in the repo) — they override/complement global ones per project.
 4. This folder is a **git repository** — commit and push regularly as backup.
 
+## New machine / sharing this library
+
+1. `git clone https://github.com/Non-invasive-Neuromodulation-Lab/skills.git`
+2. `powershell -ExecutionPolicy Bypass -File .\install.ps1`
+3. Restart/reload your AI tools — full details and an agent-ready install
+   prompt: see **`HANDOFF.md`**.
+
 See `docs/SETUP.md` for the full setup log, verification steps, and rollback plan.
 
 Created: 2026-08-31
