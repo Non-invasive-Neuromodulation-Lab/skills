@@ -164,7 +164,7 @@ One declared artifact backs C-003: `study-protocol-doc` (`artifact_kind: protoco
 
 ## Model tiering (#517)
 
-No new agents; no manifest change. Route-relevant assignments per `shared/model_tiering.md`: **execution-type** — `intake` (variant + artifact intake), `draft_writer`, `citation_compliance`, `abstract_agent`, `formatter` (stamp-only), `field_analyst` (card generation); **judgment-type** — `structure_architect` (E/S schema selection), `socratic_mentor`, `peer_reviewer`, `literature_strategist`, `integrity_verification` (Phase C5 verdicts), and the reviewer panel's checkpoint surfaces (EIC + R1–R3 + Devil's Advocate + editorial synthesizer).
+No new agents; no manifest change. Route-relevant assignments per `shared/model_tiering.md`: **execution-type** — `intake` (variant + artifact intake), `draft_writer`, `citation_compliance`, `abstract_agent`, `formatter` (stamp-only), `field_analyst` (card generation — note: that agent's file lives in the `academic-paper-reviewer` skill tree at `agents/field_analyst_agent.md`, since it configures the reviewer panel; it is not in `academic-paper\agents\`); **judgment-type** — `structure_architect` (E/S schema selection), `socratic_mentor`, `peer_reviewer`, `literature_strategist`, `integrity_verification` (Phase C5 verdicts), and the reviewer panel's checkpoint surfaces (EIC + R1–R3 + Devil's Advocate + editorial synthesizer).
 
 ## Status and limits
 

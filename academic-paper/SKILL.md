@@ -2,7 +2,7 @@
 name: academic-paper
 description: "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 7 paper types, 5 citation formats, English abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, audit my rebuttal, check my response draft, AI disclosure, tool paper, design and evaluation paper, CDSS paper, usability paper, protocol paper."
 metadata:
-  version: "3.4.2"
+  version: "3.4.3"
   last_updated: "2026-09-22"
   status: active
   data_access_level: raw
