@@ -405,6 +405,81 @@ the formatter does NOT re-evaluate experiment alignment (it only surfaces the
 experiment_alignment_results[] annotations).
 ```
 
+#### C5. Tool-Artifact Provenance & Claim Alignment (Tool Paper route, v3.4.0)
+
+**ROUTE-CONDITIONAL — run this phase only when the activation condition holds:** paper_type is Tool Paper (Design & Evaluation) (any `tool_paper_variant`) OR any artifact field is present (`tool_artifact_provenance[]` non-empty, `tool_artifact_intake_declaration` present, or any manifest claim carrying `planned_artifact_ids[]`). When the condition does NOT hold, skip this phase entirely and write nothing — a non-tool passport stays byte-identical to a pre-v3.4.0 run. (Documented deviation from #260's unconditional D7: the experiment declaration is fail-closed for ALL passports; the artifact declaration is fail-closed only on the route.)
+
+**You are the PRODUCER of `artifact_alignment_results[]`.** Same producer-at-the-gate pattern as C3/C4: the verdict is computed HERE (Stage 2.5 sampling / Stage 4.5 full), the same stage that blocks on it. The `claim_ref_alignment_audit_agent` does NOT emit this verdict (its D4-c condition-4 exemption routes artifact-backed sentences here). You read both join sides directly: the passport's `tool_artifact_provenance[]` and each claim manifest's `planned_artifact_ids[]`.
+
+**Boundary (verbatim — say this in your output, do not paraphrase):** "This check verifies disclosure and claim-to-provenance fidelity for declared artifacts. It does not judge whether the artifact is well designed, useful, clinically safe, or validated." You read prose against declared provenance; you do NOT evaluate artifacts. Artifact quality/utility, clinical safety, and regulatory validity are outside the audit boundary.
+
+```
+(A0) Declaration check — run FIRST when the phase is active. Four FAIL conditions:
+      1. route active (paper_type is Tool Paper) AND tool_artifact_intake_declaration
+         absent → FAIL (the route cannot be dodged by omitting the declaration).
+      2. status == artifacts_declared but tool_artifact_provenance[] absent/empty → FAIL.
+      3. status == no_artifacts_declared but tool_artifact_provenance[] non-empty OR any
+         manifest claim carries planned_artifact_ids[] → FAIL.
+      4. status == no_artifacts_declared but the manuscript reports artifact-derived
+         results — an evaluation/results sentence reporting the tool's own outputs (screen
+         hits, issue counts, timing, usability findings, simulated-case verdicts) with no
+         <!--ref:slug--> marker and no planned_artifact_ids → FAIL (heuristic).
+    status == legacy_unknown with no artifact fields → PASS WITH NOTES (advisory).
+
+For each referenced tool_artifact_provenance[] entry (those an audited claim's
+planned_artifact_ids resolves to, sampled per the mode):
+
+(0) Entry well-formedness — SHORT-CIRCUITS (1)-(4)
+    - MALFORMED if it omits any required key: artifact_id, title, artifact_kind, locator,
+      produced_by, content_units, negative_findings, known_limitations. The
+      negative_findings and known_limitations keys MUST be PRESENT but MAY be [] (empty is
+      well-formed and routes to the check-4 advisory; an ABSENT key is malformed — the same
+      hardening C3/C4 apply).
+
+(1) Completeness
+    - Every referenced artifact_id resolves to exactly one tool_artifact_provenance[] entry.
+      A dangling planned_artifact_ids pointer is a STRUCTURAL FAIL (AP-INV-2 / AA-INV-2 in
+      the lint), never a judge verdict; do NOT emit a fabricated verdict row —
+      PROVENANCE_MISSING is not a verdict.
+
+(2) Unit fidelity
+    - A claim may rest only on content_units[] the entry actually declares: check the
+      pointed-at unit's quantity/metric/value against the claim's numbers within tolerance.
+
+(3) Claim-artifact fidelity (you EMIT an artifact_alignment_results[] row here)
+    - Cross-check THREE provenance regions: (a) the unit_pointer target; (b) the entry's
+      negative_findings[] — a claim asserting a finding a negative_findings[] entry
+      contradicts is NOT_SUPPORTED_BY_PROVENANCE (verdict-level, IN ADDITION to the
+      check-4 disclosure advisory — both fire); (c) the entry's known_limitations[] for
+      framing scope.
+    - Verdict enum (same MECE vocabulary as C4): ALIGNED / OVERSTATED (provenance supports
+      a weaker claim; simulation_output-backed results presented without simulated framing
+      floor at OVERSTATED — see check 5) / NOT_SUPPORTED_BY_PROVENANCE / PROVENANCE_INSUFFICIENT.
+      Emit one row per artifact-backed claim with finding_id (^AA-NNN$), scoped_manifest_id,
+      claim_id, claim_text, artifact_id, unit_pointer (points INTO content_units[] —
+      artifact_id alone is too coarse), manuscript_locator, alignment_verdict, rationale,
+      judge_model, judge_run_at, rule_version: AA-v1.
+    - Mixed-evidence claim (BOTH planned_refs AND planned_artifact_ids): one
+      claim_audit_results[] row (citation path) AND one artifact_alignment_results[] row;
+      the gate combines them worst-verdict-wins.
+
+(4) Negative-finding / limitation visibility (advisory)
+    - Declared negative_findings[] and material known_limitations[] surfaced in
+      Evaluation/Discussion/Limitations prose (E5/E6 on this route).
+
+(5) Variant rules (tool_paper_variant)
+    - protocol_design: a Results/S-data claim reporting COLLECTED data → FAIL
+      (results-reporting is forbidden on this variant; planned-evaluation prose only).
+    - Simulation evidence (artifact_kind simulation_scenario/simulation_output) presented
+      without simulated framing → verdict at least OVERSTATED.
+
+Severity — same precedence ladder as C4: a check-(0) malformed finding short-circuits;
+any FAIL condition blocks (advisory notes never downgrade a FAIL); PASS WITH NOTES only
+when no FAIL condition is met. The FAILs here block at THIS integrity gate; the formatter
+does NOT re-evaluate artifact alignment (it only surfaces artifact_alignment_results[]
+annotations).
+```
+
 ### Phase D: Originality Verification
 
 See `references/plagiarism_detection_protocol.md` for the complete protocol definition. Below is an executive summary.

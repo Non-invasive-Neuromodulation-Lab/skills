@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Imbad0202/academic-research-skills/shared/contracts/passport/artifact_alignment_result.schema.json",
+  "title": "Material Passport Artifact Alignment Result Entry",
+  "description": "One entry in Material Passport Schema 9 artifact_alignment_results[] aggregate (Tool Paper route, v3.4.0) — the FIFTH ref_slug-less claim-finding aggregate, alongside uncited_assertions[] / claim_drifts[] / constraint_violations[] / experiment_alignment_results[]. An artifact-backed claim has no <!--ref:slug--> citation marker, so it cannot satisfy claim_audit_result.required (which mandates ref_slug); it rides its own aggregate by the precedent the four siblings established. PRODUCER = the integrity verification agent, computed AT the integrity gate (Stage 2.5 sampling / Stage 4.5 full, Phase C5) — NOT the claim_ref_alignment_audit_agent (same stage-ordering rationale as experiment_alignment_result: a verdict produced after the gate would land after the gate already ran). A claim referencing an artifact_id with NO matching tool_artifact_provenance[] entry is a STRUCTURAL failure (AP-INV-2 / AA-INV-2), never a judge verdict — PROVENANCE_MISSING is deliberately NOT in the verdict enum. Cross-array invariants AA-INV-1..AA-INV-2 are designed for lint enforcement in scripts/check_claim_audit_consistency.py (upstream; not present in every checkout). See academic-paper/docs/tool-paper-route.md.",
+
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "finding_id",
+    "scoped_manifest_id",
+    "claim_id",
+    "claim_text",
+    "artifact_id",
+    "unit_pointer",
+    "manuscript_locator",
+    "alignment_verdict",
+    "rationale",
+    "judge_model",
+    "judge_run_at",
+    "rule_version"
+  ],
+
+  "properties": {
+    "finding_id": {
+      "type": "string",
+      "pattern": "^AA-[0-9]{3,}$",
+      "description": "Per-passport unique finding identifier for artifact_alignment_results[]. AA-INV-1 enforces uniqueness. AA- prefix mirrors the EA-/UA-/DR-/CV- sibling-aggregate convention."
+    },
+    "scoped_manifest_id": {
+      "type": "string",
+      "pattern": "^M-[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z-[0-9a-f]{4}$",
+      "description": "Points to the owning claim_intent_manifest.manifest_id. The pair (scoped_manifest_id, claim_id) is the joinable key — bare claim_id collides across manifests in the same passport. AA-INV-2 enforces cross-array resolution to a real manifest claim."
+    },
+    "claim_id": {
+      "type": "string",
+      "pattern": "^C-[0-9]{3,}$",
+      "description": "Per-manifest claim identifier scoped by scoped_manifest_id."
+    },
+    "claim_text": { "type": "string", "minLength": 1, "maxLength": 2000 },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The tool_artifact_provenance[].artifact_id this claim is judged against. AA-INV-2 enforces resolution to a real tool_artifact_provenance[] entry; a dangling id is a structural FAIL, never modelled as a verdict."
+    },
+    "unit_pointer": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Points INTO the provenance entry's content_units[] (e.g. a unit_id + metric, or a JSON-Pointer-style locator) — artifact_id alone is too coarse for a claim like 'mean screening time 92 s'."
+    },
+    "manuscript_locator": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Section path to the claim sentence (e.g. 'S1 Results > Pilot crossover timing') so a failing alignment can be fixed in the manuscript."
+    },
+    "alignment_verdict": {
+      "enum": ["ALIGNED", "OVERSTATED", "NOT_SUPPORTED_BY_PROVENANCE", "PROVENANCE_INSUFFICIENT"],
+      "description": "Same MECE vocabulary as experiment_alignment_result (reused deliberately — one provenance-path semantics; NOT the citation-path judgment names). ALIGNED = supported by declared provenance. OVERSTATED = provenance supports a weaker version (includes simulation_output-backed results presented without simulated framing — Phase C5 check 5 floors such claims at OVERSTATED). NOT_SUPPORTED_BY_PROVENANCE = artifact/evaluation exists but the declared units do not support the claim (no relevant unit / contradicts / contradicts a declared negative_findings[] entry). PROVENANCE_INSUFFICIENT = the entry exists but lacks detail to judge. PROVENANCE_MISSING is NOT here — a dangling artifact_id is an AP-INV-2/AA-INV-2 structural FAIL."
+    },
+    "rationale": { "type": "string", "minLength": 1, "maxLength": 2000 },
+    "judge_model": { "type": "string", "minLength": 1 },
+    "judge_run_at": { "type": "string", "format": "date-time" },
+    "rule_version": {
+      "const": "AA-v1",
+      "description": "Frozen literal for the v3.4.0 Tool Paper route release. Future rule revisions bump the constant and require re-lint."
+    }
+  }
+}

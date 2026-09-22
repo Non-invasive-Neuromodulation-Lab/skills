@@ -916,6 +916,7 @@ Quality gate not passed ->
 | Conference paper | Typically requires 2-column layout (LaTeX: `\documentclass[twocolumn]`); font may be smaller (10pt) |
 | Policy brief | Does not use standard academic format; may add sidebars, callout boxes; more flexible page layout |
 | Thesis chapter | Must comply with university format guidelines; typically has cover page, table of contents, acknowledgments, and other additional elements |
+| Tool Paper | Use `templates/tool_paper_template.md`; preserve the E5 status word (pilot/walkthrough/simulated/planned) in abstract and headings — formatting must not upgrade the evaluation status; X-extension blocks (protocol tables, per-region issue tables, timing logs) render as tables/appendices per S6 |
 
 ## Collaboration Rules with Other Agents
 

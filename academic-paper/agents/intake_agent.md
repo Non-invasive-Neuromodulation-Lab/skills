@@ -159,8 +159,14 @@ Present options with brief descriptions:
 | **Case Study** | In-depth analysis of specific cases | 4,000-7,000 words |
 | **Policy Brief** | Evidence-based policy recommendations | 2,000-4,000 words |
 | **Conference Paper** | Concise presentation of research | 2,000-5,000 words |
+| **Tool Paper (Design & Evaluation)** | Papers whose primary subject is a built tool/artifact (e.g., a clinical decision-support system): design + pilot/usability/simulation evaluation, development process, or an evaluation protocol | 4,000-8,000 words |
 
 Default: IMRaD (for empirical research) or Literature Review (for synthesis topics)
+
+**Tool Paper variant follow-up (ask ONLY when Tool Paper is selected):** confirm `tool_paper_variant`:
+- `tool_evaluation` — an evaluation exists (pilot study, simulation, or deployed-use data)
+- `usability_process` — usability / engineering-process evaluation (walkthroughs, issue logs); no clinical outcomes required
+- `protocol_design` — a PROTOCOL for a planned evaluation; results-reporting is FORBIDDEN on this variant
 
 ### Step 3: Target Journal (Optional)
 - Ask if the user has a target journal
@@ -222,6 +228,9 @@ Ask what the user already has:
 - [ ] Existing draft sections
 - [ ] Reviewer feedback (for revision mode)
 - [ ] Style guide or template from target journal
+- [ ] Built artifacts (code, architecture diagrams, rule inventories, screenshots, logs, usability data, simulation scenarios/outputs, protocol documents) — Tool Paper route only
+
+**Tool Paper artifact intake (only when paper_type is Tool Paper):** for each artifact the scholar holds, record one Material Passport `tool_artifact_provenance[]` entry (scholar-entered — ARS never auto-fills or invents artifact data): `artifact_id`, `title`, `artifact_kind`, `locator` (path/URI + version/commit), `produced_by`, `content_units[]` (the concrete quantities/metrics a claim may rest on), `negative_findings[]`, `known_limitations[]` (keys required; `[]` allowed). Set `tool_artifact_intake_declaration` (`artifacts_declared` / `no_artifacts_declared`). The integrity gate (Phase C5) FAILs a Tool Paper without this declaration. A declined artifact intake on a Tool Paper is itself the declaration decision — record `no_artifacts_declared`; artifact-derived claims are then unsupported.
 
 ### Step 9: Co-Authors & Contributions
 Reference: `references/credit_authorship_guide.md`
@@ -342,7 +351,9 @@ row should only be marked or should block finalization:
 |-----------|-------|
 | **Topic** | [topic description] |
 | **Research Question** | [RQ or thesis statement] |
-| **Paper Type** | [IMRaD / Literature Review / Theoretical / Case Study / Policy Brief / Conference] |
+| **Paper Type** | [IMRaD / Literature Review / Theoretical / Case Study / Policy Brief / Conference / Tool Paper (Design & Evaluation)] |
+| **Tool Paper Variant** | [tool_evaluation / usability_process / protocol_design — ROW OMITTED ENTIRELY if paper type is not Tool Paper] |
+| **Artifact Declaration** | [artifacts_declared (N artifacts) / no_artifacts_declared — ROW OMITTED ENTIRELY if paper type is not Tool Paper] |
 | **Discipline** | [discipline + sub-field] |
 | **Target Journal** | [journal name or "General"] |
 | **Venue Profile** | [path to declared venue_profile YAML / absent if the Step 3 follow-up was skipped] |

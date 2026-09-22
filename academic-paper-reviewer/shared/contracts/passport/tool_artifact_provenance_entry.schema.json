@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Imbad0202/academic-research-skills/shared/contracts/passport/tool_artifact_provenance_entry.schema.json",
+  "title": "Material Passport Tool-Artifact Provenance Entry",
+  "description": "One entry in Material Passport Schema 9 tool_artifact_provenance[] aggregate (Tool Paper route, v3.4.0). Scholar-entered at Stage 1 intake — NOT writer-emitted. Records the intake + disclosure layer for a NON-BIBLIOGRAPHIC artifact the scholar built or holds and brought back as primary evidence for a Tool Paper (Design & Evaluation). Named tool_artifact_provenance (NOT artifact_provenance) to stay lexically distinct from the pre-existing artifact_provenance FIELD in preregistration_artifact.schema.json and cross_document_source_manifest.schema.json, which describes something else. ARS does not build artifacts, does not auto-fill provenance, and does not judge whether the artifact is well designed, useful, clinically safe, or validated (route non-goals, carried verbatim into the integrity gate Phase C5 wording). The entry backs manuscript claims that cite it via claim_intent_manifest.planned_artifact_ids[]. Cross-array invariants AP-INV-1..AP-INV-4 are designed for lint enforcement in scripts/check_claim_audit_consistency.py (upstream; the script is not present in every checkout — JSON Schema cannot express cross-array integrity). See academic-paper/docs/tool-paper-route.md for the route design, worked example, and model-tiering statement.",
+
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "artifact_id",
+    "title",
+    "artifact_kind",
+    "locator",
+    "produced_by",
+    "content_units",
+    "negative_findings",
+    "known_limitations"
+  ],
+
+  "properties": {
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+      "description": "Scholar-chosen identifier, flat within ONE Material Passport (a passport is one run). AP-INV-1 enforces in-passport uniqueness. FROZEN at Stage 1 intake: once tool_artifact_intake_declaration.status == artifacts_declared is set, this is the stable key space writers reference via planned_artifact_ids. A post-intake rename is a re-intake event (re-run the manifest emitters), NOT a silent edit — AP-INV-2 FAILs a passport whose planned_artifact_ids dangle after a rename."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "Human-readable label for the artifact (e.g., 'NINM Safety parameter explorer v1.0.1 — safety-thresholds.js')."
+    },
+    "artifact_kind": {
+      "enum": ["code_repository", "architecture_diagram", "rule_inventory", "knowledge_base", "screenshot", "interface_mockup", "timing_log", "performance_log", "usability_data", "simulation_scenario", "simulation_output", "protocol_document", "process_artifact", "other"],
+      "description": "What kind of non-bibliographic artifact this is. simulation_scenario/simulation_output stay distinct from usability_data/pilot logs so the integrity gate's simulated-framing rule (Phase C5 check 5) can key on them; process_artifact covers intermediate development artifacts (task inventories, concept lists, value-set counts — the development-process-paper pattern)."
+    },
+    "locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path_or_uri"],
+      "description": "Where the artifact physically lives. ARS reads nothing from the locator automatically — it is disclosure, not a fetch instruction.",
+      "properties": {
+        "path_or_uri": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "Local path or URI of the artifact (e.g., 'src/js/safety-thresholds.js' or a repository URL)."
+        },
+        "version_or_commit": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Version tag or commit hash the declared content_units were measured on."
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "Optional content hash pinning the exact artifact bytes."
+        }
+      }
+    },
+    "produced_by": {
+      "enum": ["scholar", "third_party"],
+      "description": "Who produced the artifact. 'third_party' artifacts still need the scholar to declare their content_units; third-party provenance is a disclosure fact, not a trust grade."
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 4000,
+      "description": "Optional free-form description of what the artifact is and how it was produced."
+    },
+    "content_units": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Per-result-unit record of what this artifact contains that a manuscript claim can rest on. minItems 1 — an artifact entry with no content unit is a degenerate declaration that backs no claim (mirrors experiment planned_vs_executed minItems 1). artifact_alignment_result.unit_pointer points INTO this array (artifact_id alone is too coarse for a claim like 'mean screening time 92 s').",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["unit_id", "description"],
+        "properties": {
+          "unit_id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+            "description": "Unit identifier unique within this artifact entry (e.g., 'pilot-time-crossover')."
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "What this unit is (e.g., 'per-participant screening time in the pilot crossover')."
+          },
+          "quantity": {
+            "type": ["number", "string"],
+            "description": "Optional count/quantity the unit reports (e.g., 12 walkthrough issues, 40 concepts)."
+          },
+          "metric": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional metric name (e.g., 'mean screening time (s)')."
+          },
+          "value": {
+            "description": "Optional reported value for the metric (number or string)."
+          },
+          "result_file": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Pointer to the scholar's result artifact backing this unit (path/URI)."
+          }
+        }
+      }
+    },
+    "negative_findings": {
+      "type": "array",
+      "description": "Declared null/absent/contradicting findings about the artifact or its evaluation. The KEY MUST be present (Phase C5 check-0 absent-key rule, ported from #260 D6 check-0); an empty [] is well-formed and routes to the check-4 advisory. An ABSENT key is malformed → gate FAIL. A manuscript claim that contradicts a negative_findings entry is NOT_SUPPORTED_BY_PROVENANCE, not merely a disclosure advisory.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["description"],
+        "properties": {
+          "description": { "type": "string", "minLength": 1, "maxLength": 2000 },
+          "result_file": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "known_limitations": {
+      "type": "array",
+      "description": "Declared material limitations of the artifact/evaluation. The KEY MUST be present (Phase C5 check-0); empty [] is well-formed and routes to the check-4 advisory; an ABSENT key is malformed → gate FAIL. Surfaced in E6 Discussion/Limitations prose (advisory).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["description"],
+        "properties": {
+          "description": { "type": "string", "minLength": 1, "maxLength": 2000 }
+        }
+      }
+    }
+  }
+}

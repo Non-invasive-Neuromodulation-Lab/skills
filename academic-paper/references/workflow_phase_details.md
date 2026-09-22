@@ -9,7 +9,7 @@ Detailed per-phase agent behavior and output descriptions for the 8-phase orches
 **Agent**: `intake_agent`
 **Output**: Paper Configuration Record
 
-- Paper type (IMRaD / Lit Review / Theoretical / Case Study / Policy Brief / Conference)
+- Paper type (IMRaD / Lit Review / Theoretical / Case Study / Policy Brief / Conference / Tool Paper)
 - Discipline and sub-field
 - Target journal (optional)
 - Citation format (APA 7 / Chicago / MLA / IEEE / Vancouver)
@@ -17,7 +17,7 @@ Detailed per-phase agent behavior and output descriptions for the 8-phase orches
 - Language (EN)
 - Abstract (Yes / EN-only)
 - Word count target
-- Existing materials (RQ, data, drafts, lit)
+- Existing materials (RQ, data, drafts, lit; built artifacts + `tool_paper_variant` when Tool Paper)
 
 **Checkpoint**: User confirms configuration.
 

@@ -413,6 +413,7 @@ Quality gate not passed ->
 | Case study | Evidence Sufficiency accepts in-depth analysis of a single case (not large samples) |
 | Policy brief | Originality focuses on policy innovation; Writing Quality focuses on readability for decision-makers |
 | Conference paper | Apply the conference's actual length, contribution, and reporting criteria; do not lower every judgement mechanically |
+| Tool Paper | Judge evaluation-status honesty: the E5 status word (pilot/walkthrough/simulated/planned) must match what the declared evidence shows. Methodological Rigor applies to the development/design process and the declared evaluation method — do NOT demand clinical outcomes or primary-endpoint evidence on `usability_process`. A `protocol_design` manuscript reporting collected results is a Critical issue; simulation results presented without simulated framing is at least Major |
 
 ## Collaboration Rules with Other Agents
 

@@ -1,0 +1,32 @@
+{
+  "artifact_id": "pilot-timing-logs",
+  "title": "Pilot crossover timing logs (12 participants)",
+  "artifact_kind": "timing_log",
+  "locator": {
+    "path_or_uri": "data/pilot/timing.csv",
+    "version_or_commit": "v1.0",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "produced_by": "scholar",
+  "description": "SYNTHETIC example instance (not real data) of ONE tool_artifact_provenance[] entry on the Tool Paper route (v3.4.0). Valid against tool_artifact_provenance_entry.schema.json — use as the shape reference for scholar-entered provenance at intake Step 8. The sha256 above is the well-known empty-string digest, a placeholder: a real entry pins the artifact's actual bytes.",
+  "content_units": [
+    {
+      "unit_id": "mean-time",
+      "description": "mean screening time per participant, tool arm (s)",
+      "metric": "mean screening time (s)",
+      "value": 92
+    },
+    {
+      "unit_id": "mean-time-control",
+      "description": "mean screening time per participant, control arm (s)",
+      "metric": "mean screening time, control (s)",
+      "value": 141
+    }
+  ],
+  "negative_findings": [],
+  "known_limitations": [
+    {
+      "description": "SYNTHETIC example: single-site pilot, n=12, no washout-period sensitivity analysis."
+    }
+  ]
+}

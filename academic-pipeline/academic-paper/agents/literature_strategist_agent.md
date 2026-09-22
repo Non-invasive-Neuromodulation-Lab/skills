@@ -569,6 +569,7 @@ Quality gate not passed ->
 | Case study | Increase gray literature tolerance (policy documents, institutional reports); search for prior research on similar cases |
 | Policy brief | Include applicable government reports, white papers, and statistical data; justify currency from the policy decision and update cycle rather than a universal ratio |
 | Conference paper | Apply the venue's scope and length constraints; prioritize sources necessary to support the submitted claims |
+| Tool Paper | Related-work corpus is scoped to the artifact's field and comparable tools, not exhaustive coverage; `slr_lineage` stays false — do not impose PRISMA/systematic-review expectations on a tool paper's background |
 
 ### Poor Quality Upstream (intake_agent output is poor)
 

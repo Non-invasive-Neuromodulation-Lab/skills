@@ -139,6 +139,18 @@ ids, digest, or parallel-conflict groups, and it never emits a binding receipt.
 | R2 | Taiwan higher education policy researcher, private university exit mechanism expert | Policy context accuracy, literature completeness |
 | R3 | Organizational management / strategic management scholar | Theoretical foundation of strategy frameworks, connection to business management theory |
 
+### Tool Paper (Design & Evaluation) Route Defaults (v3.4.0)
+
+When `paper_type` is **Tool Paper (Design & Evaluation)**, default the four configuration cards to the Paper Configuration Record's `tool_paper_variant`; the scholar may adjust any card (dynamic cards stay user-adjustable; the fixed Devil's Advocate is unaffected). Clinical-informatics and human-factors expertise are present on every variant.
+
+| Variant | Journal-Fit Reviewer | R1 (Methodology) | R2 (Domain) | R3 (Cross-disciplinary) |
+|---------|---------------------|------------------|-------------|-------------------------|
+| `tool_evaluation` | Informatics journal editor (e.g., JAMIA, JMIR) | Clinical-informatics methodologist (evaluation design, pilot/simulation methodology) | Clinical domain expert (the artifact's field) | Human-factors expert |
+| `usability_process` | Health-informatics / digital-health editor | Human-factors methodologist (usability, cognitive walkthrough) | Clinical-informatics expert | Domain clinician |
+| `protocol_design` | Trial-venue editor (e.g., Trials, BMJ Open) | Trial methodologist (protocol design, endpoints) | Clinical domain expert | Clinical-informatics expert |
+
+These are defaults, not constraints: an author-confirmed target journal overrides the Journal-Fit card per Configuration Principle 1.
+
 ---
 
 ## Output Format

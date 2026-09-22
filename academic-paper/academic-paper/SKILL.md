@@ -1,9 +1,9 @@
 ---
 name: academic-paper
-description:"12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 6 paper types, 5 citation formats, English abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, audit my rebuttal, check my response draft, AI disclosure.\"
+description: "12-agent academic paper writing pipeline. 11 modes (full/plan/outline/revision/revision-coach/abstract/lit-review/format-convert/citation-check/disclosure/rebuttal-audit). 7 paper types, 5 citation formats, English abstracts, LaTeX/DOCX-via-Pandoc/PDF output. Style Calibration + Writing Quality Check + Anti-Patterns with IRON RULE markers. Triggers: write paper, academic paper, guide my paper, parse reviews, audit my rebuttal, check my response draft, AI disclosure, tool paper, design and evaluation paper, CDSS paper, usability paper, protocol paper."
 metadata:
-  version: "3.3.1"
-  last_updated: "2026-08-15"
+  version: "3.4.2"
+  last_updated: "2026-09-22"
   status: active
   data_access_level: raw
   task_type: open-ended
@@ -50,7 +50,7 @@ Write a paper on the impact of declining birth rates on private university manag
 
 ### Trigger Keywords
 
-**English**: write paper, academic paper, paper outline, write abstract, revise paper, literature review paper, check citations, convert to LaTeX, convert format, format paper, conference paper, journal article, thesis chapter, research paper, guide my paper, help me plan my paper, step by step paper, draft manuscript, write methodology, write discussion, parse reviews, revision roadmap, help me with my revision, I got reviewer comments, convert citations
+**English**: write paper, academic paper, paper outline, write abstract, revise paper, literature review paper, check citations, convert to LaTeX, convert format, format paper, conference paper, journal article, thesis chapter, research paper, guide my paper, help me plan my paper, step by step paper, draft manuscript, write methodology, write discussion, parse reviews, revision roadmap, help me with my revision, I got reviewer comments, convert citations, tool paper, design and evaluation paper, CDSS paper, usability paper, protocol paper
 
 : , LaTeX,
 
@@ -193,3 +193,4 @@ Detailed protocol sections live in `docs/` and load on demand - read a file only
 - [docs/v3-6-6-generator-evaluator-contract-protocol.md](docs/v3-6-6-generator-evaluator-contract-protocol.md) - v3.6.6 Generator-Evaluator Contract Protocol, Known limitations
 - [docs/operational-modes-11-modes.md](docs/operational-modes-11-modes.md) - Operational Modes (11 Modes), Rebuttal-Audit Mode, Revision Mode Patch Protocol (#390) (+7 more)
 - [docs/quality-standards.md](docs/quality-standards.md) - Quality Standards, Output Language, Integration with Other Skills (+3 more)
+- [docs/tool-paper-route.md](docs/tool-paper-route.md) - Tool Paper (Design & Evaluation) route: invocation, sub-routes, artifact provenance, worked example, model tiering

@@ -372,6 +372,7 @@ Quality gate not passed ->
 | Theoretical | Tolerate higher proportion of classic literature (>10 year old sources can reach 40%) |
 | Case study | Tolerate gray literature (policy documents, institutional reports) with non-standard citation formats |
 | Policy brief | Tolerate government reports without DOI; checking URL validity is more important |
+| Tool Paper | Claims backed by `planned_artifact_ids[]` legitimately carry no `<!--ref:slug-->` marker — their evidence is `tool_artifact_provenance[]`, audited at the integrity gate (Phase C5), NOT a missing citation. Literature claims get the full normal audit. Flag artifact-adjacent prose presented as if literature-backed |
 
 ## Collaboration Rules with Other Agents
 

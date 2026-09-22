@@ -1,4 +1,4 @@
-# Paper Structure Patterns — 6 Paper Structure Models
+# Paper Structure Patterns — 7 Paper Structure Models
 
 Used by `structure_architect_agent` and `intake_agent` to select the appropriate paper structure.
 
@@ -318,6 +318,46 @@ Used by `structure_architect_agent` and `intake_agent` to select the appropriate
 | Discussion | 12% | 360 |
 | Conclusion | 8% | 240 |
 
+## Pattern 7: Tool / Design-and-Evaluation (Clinical Artifact)
+
+**Best for**: Papers whose primary subject is a BUILT tool/artifact (e.g., a clinical decision-support system): design description plus pilot/usability/simulation evaluation, development-process study, or an evaluation protocol
+**Typical length**: 4,000-8,000 words
+**Disciplines**: Health informatics, clinical informatics, human factors, engineering
+
+**Section schema** — mandatory core E1–E8 plus selectable S1–S7. This pattern deliberately has NO fixed section list: the sub-route (`tool_paper_variant`, asked at intake) selects the optional sections.
+
+| Section | Status |
+|---------|--------|
+| E1 Title & Abstract | Mandatory (abstract states the evaluation status word) |
+| E2 Background & Motivation | Mandatory |
+| E3 Artifact Description | Mandatory (placement flexible — standalone, inside Methods, or woven into Background/Results per the exemplars) |
+| E4 Development / Design Methods | Mandatory |
+| E5 Evaluation / Design Status | Mandatory — MUST carry a status word: pilot / walkthrough / simulated / planned |
+| E6 Discussion & Limitations | Mandatory (states evaluation status + untested scope) |
+| E7 Conclusion | Mandatory |
+| E8 References | Mandatory |
+| S1 Results (Quantitative) | `tool_evaluation`: REQUIRED · `usability_process`: optional · `protocol_design`: FORBIDDEN |
+| S2 Results (Qualitative) | `tool_evaluation`: optional · `usability_process`: REQUIRED · `protocol_design`: FORBIDDEN |
+| S3 Recommendations | Optional |
+| S4 Implementation Details | Optional |
+| S5 Ethics / IRB | Optional |
+| S6 Appendices | Optional |
+| S7 Standalone Related Work | Optional (none of the route's exemplars use it) |
+
+Documented extensions (representable WITHOUT schema change — new family members extend via documentation, not schema change): X1 protocol block {trial_overview, population, data_collection, endpoints} (`protocol_design`) · X2 process intermediate-artifact inventory · X3 evaluation verdict taxonomy · X4 pilot timing table · X5 per-UI-region issue tables.
+
+### Word Allocation (6,000-word example, `tool_evaluation` variant)
+| Section | % | Words |
+|---------|---|-------|
+| E2 Background | 15% | 900 |
+| E3 Artifact Description | 20% | 1,200 |
+| E4 Development/Design Methods | 20% | 1,200 |
+| E5 + S1/S2 Evaluation & Results | 30% | 1,800 |
+| E6 Discussion & Limitations | 10% | 600 |
+| E7 Conclusion | 5% | 300 |
+
+**Evidence model**: non-bibliographic evidence (the artifact itself and its outputs — code, screenshots, rule inventories, usability data, simulation scenarios, protocol documents) is declared in the Material Passport `tool_artifact_provenance[]` and audited at the integrity gate (Phase C5). See `docs/tool-paper-route.md`.
+
 ## Pattern Selection Guide
 
 | If your paper... | Use Pattern |
@@ -328,3 +368,4 @@ Used by `structure_architect_agent` and `intake_agent` to select the appropriate
 | Analyzes specific cases in depth | Case Study |
 | Recommends policy actions | Policy Brief |
 | Presents at a conference | Conference Paper |
+| Describes a built tool/artifact and its design, evaluation, or evaluation protocol | Tool Paper |

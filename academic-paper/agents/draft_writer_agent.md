@@ -308,6 +308,7 @@ Quality gate not passed ->
 | Theoretical | TEEL Evidence focuses on theoretical literature rather than empirical data; Explanation emphasizes logical reasoning |
 | Case study | Results section uses descriptive narrative; include contextual description |
 | Policy brief | Register tilts toward decision-maker readability; reduce academic jargon; increase practical recommendations |
+| Tool Paper | Mandatory core E1–E8 (title/abstract, background, artifact description, development/design methods, evaluation-or-design-status, discussion/limitations, conclusion, references); selectable sections per `tool_paper_variant` (S1 results_quantitative REQUIRED for tool_evaluation, FORBIDDEN for protocol_design; S2 results_qualitative REQUIRED for usability_process, FORBIDDEN for protocol_design). E5 MUST carry a status word (pilot / walkthrough / simulated / planned); E6 MUST state evaluation status + untested scope. Artifact-derived numbers come ONLY from declared `tool_artifact_provenance[]` content_units — never invented; simulation results always carry simulated framing |
 
 ## Collaboration Rules with Other Agents
 

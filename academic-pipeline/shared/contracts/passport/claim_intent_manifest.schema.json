@@ -51,8 +51,8 @@
           },
           "claim_text": { "type": "string", "minLength": 1, "maxLength": 2000 },
           "intended_evidence_kind": {
-            "enum": ["empirical", "theoretical", "definitional", "normative"],
-            "description": "What kind of evidence the writer intends to back this claim with. Used by the audit agent's manifest cross-reference to discriminate drift from refinement."
+            "enum": ["empirical", "theoretical", "definitional", "normative", "artifact"],
+            "description": "What kind of evidence the writer intends to back this claim with. Used by the audit agent's manifest cross-reference to discriminate drift from refinement. 'artifact' (Tool Paper route, v3.4.0) marks claims backed by the scholar's declared tool_artifact_provenance[] rather than by literature or experiments."
           },
           "planned_refs": {
             "type": "array",
@@ -66,6 +66,13 @@
             "minItems": 1,
             "uniqueItems": true,
             "description": "Passport-local experiment_provenance[].experiment_id values the writer intends to support this claim with (#260, D1). OPTIONAL-ABSENT — present only on experiment-backed claims; literature-only / definitional / theoretical / normative claims omit it entirely (do NOT carry a meaningless empty array). minItems 1 because an empty array is meaningless — omit the field instead. EP-INV-2 enforces every value resolves to exactly one experiment_provenance[] entry (doubles as the rename + forward-reference dangling-pointer guard). EP-INV-3 enforces presence ⟹ this claim's intended_evidence_kind == 'empirical' (mixed literature+experiment allowed: a claim MAY carry BOTH planned_refs and planned_experiment_ids). A mixed-evidence claim is audited by both paths and combined worst-verdict-wins (D4)."
+          },
+          "planned_artifact_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1,
+            "uniqueItems": true,
+            "description": "Passport-local tool_artifact_provenance[].artifact_id values the writer intends to support this claim with (Tool Paper route, v3.4.0). OPTIONAL-ABSENT — present only on artifact-backed claims; literature/experiment/definitional claims omit it entirely (do NOT carry a meaningless empty array; minItems 1 because an empty array is meaningless — omit the field instead). AP-INV-2 enforces every value resolves to exactly one tool_artifact_provenance[] entry (dangling-pointer guard, same as planned_experiment_ids). AP-INV-3 enforces presence ⟹ this claim's intended_evidence_kind == 'artifact' (mixed literature+artifact allowed: a claim MAY carry BOTH planned_refs and planned_artifact_ids). A mixed-evidence claim is audited by both paths and combined worst-verdict-wins at the integrity gate (Phase C5)."
           },
           "negative_constraints": {
             "type": "array",

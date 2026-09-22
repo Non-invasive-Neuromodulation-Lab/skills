@@ -40,7 +40,7 @@ If downstream work is needed, return control to the caller with a recommendation
 
 Reference: `references/paper_structure_patterns.md`
 
-Based on the Paper Configuration Record, select from 6 patterns:
+Based on the Paper Configuration Record, select from 7 patterns:
 
 ### Pattern 1: IMRaD (Introduction-Method-Results-Discussion)
 Best for: Empirical research with original data
@@ -60,10 +60,13 @@ Best for: Evidence-based policy recommendations
 ### Pattern 6: Conference Paper
 Best for: Concise presentation of research in progress
 
+### Pattern 7: Tool / Design-and-Evaluation (Clinical Artifact)
+Best for: Papers whose primary subject is a built tool/artifact — design description + evaluation (pilot/usability/simulation) or evaluation protocol; flexible E/S section schema routed by `tool_paper_variant`
+
 ## Outline Construction Process
 
 ### Step 1: Select Top-Level Structure
-Choose from the 6 patterns based on paper type.
+Choose from the 7 patterns based on paper type.
 
 ### Step 2: Develop Section Headings
 - Level 1: Major sections (3-6)
@@ -148,7 +151,7 @@ venue-alignment claim.
 ```markdown
 ## Paper Outline
 
-### Structure Pattern: [IMRaD / Lit Review / Theoretical / Case Study / Policy Brief / Conference]
+### Structure Pattern: [IMRaD / Lit Review / Theoretical / Case Study / Policy Brief / Conference / Tool Paper]
 
 ### Overview
 [1-paragraph summary of the paper's flow]
@@ -201,6 +204,7 @@ Receive Paper Configuration Record ->
 ├── paper_type = "Case Study" -> Pattern 4
 ├── paper_type = "Policy Brief" -> Pattern 5
 ├── paper_type = "Conference" -> Pattern 6
+├── paper_type = "Tool Paper (Design & Evaluation)" -> Pattern 7 (select S1/S2 sections by tool_paper_variant)
 └── paper_type not specified ->
     ├── User has original data/experiment?
     │   ├── Yes -> Recommend Pattern 1 (IMRaD)
@@ -209,6 +213,7 @@ Receive Paper Configuration Record ->
     │       ├── User wants to analyze specific institution/case? -> Recommend Pattern 4 (Case Study)
     │       ├── User wants to build/critique theoretical framework? -> Recommend Pattern 3 (Theoretical)
     │       ├── User wants to propose policy recommendations? -> Recommend Pattern 5 (Policy Brief)
+    │       ├── User built a tool/artifact and evaluates or plans its evaluation? -> Recommend Pattern 7 (Tool Paper)
     │       └── Target is a conference? -> Recommend Pattern 6 (Conference)
 
 Special cases:
@@ -259,6 +264,8 @@ Step 5: Output
 | Recommendations | — | — | — | — | 30% | — |
 | Conclusion | 5% | 10% | 8% | 8% | 10% | 5% |
 | Future Directions | — | 5% | 5% | 5% | 5% | — |
+
+Pattern 7 (Tool Paper) is not a fixed-section pattern: allocate per its E/S section schema (`references/paper_structure_patterns.md` Pattern 7) — E1–E8 mandatory core, S1–S7 selectable per `tool_paper_variant` (S1 required for `tool_evaluation`, S2 required for `usability_process`; both forbidden for `protocol_design`).
 
 ### Outline Depth Rules
 
@@ -365,6 +372,7 @@ Quality gate not passed ->
 | Case study | Add "Case Context" section (institutional background + data sources); Analysis uses multi-dimensional approach |
 | Policy brief | Replace Abstract with Executive Summary; add Recommendations section (25-30% of total) |
 | Interdisciplinary paper | Clearly label literature groups by discipline in Literature Review |
+| Tool Paper | Structure is the E/S schema, not a fixed section list: E1–E8 mandatory core; S1 Results (Quantitative) REQUIRED for `tool_evaluation` and FORBIDDEN for `protocol_design`; S2 Results (Qualitative) REQUIRED for `usability_process` and FORBIDDEN for `protocol_design`; E3 Artifact Description placement flexible (standalone, in Methods, or woven into Background per the exemplars); E5 MUST name the evaluation status (pilot / walkthrough / simulated / planned) |
 
 ## Collaboration Rules with Other Agents
 

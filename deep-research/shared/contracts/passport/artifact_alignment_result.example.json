@@ -1,0 +1,14 @@
+{
+  "finding_id": "AA-003",
+  "scoped_manifest_id": "M-2026-09-22T10:00:00Z-ab12",
+  "claim_id": "C-005",
+  "claim_text": "Mean screening time was 92 s with the tool vs 141 s with the control workflow (pilot, n=12, crossover).",
+  "artifact_id": "pilot-timing-logs",
+  "unit_pointer": "pilot-timing-logs/mean-time",
+  "manuscript_locator": "S1 Results > Pilot crossover timing",
+  "alignment_verdict": "ALIGNED",
+  "rationale": "SYNTHETIC example: both numbers in the claim match declared content_units (mean-time=92, mean-time-control=141); timing_log is not a simulation kind, so no simulated-framing floor applies.",
+  "judge_model": "example-placeholder",
+  "judge_run_at": "2026-09-22T12:00:00Z",
+  "rule_version": "AA-v1"
+}
